@@ -1,8 +1,8 @@
-# React + Vite
+- 팀원에게
+- 1안, 2안, 3안으로 만들어뒀으니 확인하고 무엇이 좋은지 이야기해줘
+- 내가 일본놀러가서 아마 그 시간동안 피드백이 안되서 미리 만들어두고가
+- 프로토타입이니까 맘에 안들거나 수정할 거 있으면 이야기해줘도 문제 없어
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 템플릿 1
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![템플릿 1](image.png)

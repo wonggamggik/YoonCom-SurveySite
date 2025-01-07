@@ -1,0 +1,80 @@
+.firstDraft {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: #fffff0; /* 원하는 배경색 */
+}
+
+.firstDraft .firstDraft-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  padding: 2em 0;
+  width: 640px;
+  max-width: 90vw;
+  gap: 12px;
+}
+
+.firstDraft .title {
+  width: 100%;
+  border-radius: 15px;
+  border: solid black 1px;
+  padding: 22px 24px 16px 24px;
+  background-color: #ffffff;
+}
+
+.firstDraft .title .description {
+  margin: 12px 0px 0px 0px;
+  font-size: 11pt;
+  line-height: 15pt;
+  letter-spacing: 0;
+}
+
+.firstDraft h1 {
+  font-size: 24pt;
+  font-family: "docs-Roboto", Helvetica, Arial, sans-serif;
+}
+
+.firstDraft .question {
+  width: 100%;
+  border-radius: 15px;
+  border: solid black 1px;
+  padding: 22px 24px 16px 24px;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.firstDraft label {
+  font-size: 12pt;
+  font-family: "docs-Roboto", Helvetica, Arial, sans-serif;
+  margin-bottom: 16px;
+}
+
+.firstDraft input {
+  border: none;
+  outline: none;
+  border-bottom: solid 1px #000000;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  line-height: 20px;
+  color: rgb(32, 33, 36);
+  width: 50%;
+}
+
+.firstDraft textarea {
+  border: none;
+  outline: none;
+  border-bottom: solid 1px #000000;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  line-height: 20px;
+  color: rgb(32, 33, 36);
+  overflow: hidden;
+  resize: none;
+}
