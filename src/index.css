@@ -133,16 +133,5 @@ table {
 }
 
 :root {
-  --app-background-color: #f0f0f0;
-  --component-background-color: #ffffff;
-  --ease-component-background-color: #fafafa;
-  --default-text-color: #000000;
-  --reverse-text-color: #ffffff;
-  --ease-text-color: #64748b;
-  --bar-text-color: #00000033;
-  --default-border-color: #000000;
-  --ease-border-color: #cbd5e1;
-  --default-component-color: #0f172a;
-  --default-shadow-color: #00000040;
-  --image-register-button-color: #cbd5e1;
+  --company-symbol-color: #162a4b;
 }
