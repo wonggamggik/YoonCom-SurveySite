@@ -1,0 +1,14 @@
+.header {
+  background-color: var(--company-symbol-color);
+  height: 73px;
+}
+
+.header-inner {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px clamp(0px, calc(10% - 50px), 100%);
+  padding: 10px 15px;
+  height: 73px;
+}
