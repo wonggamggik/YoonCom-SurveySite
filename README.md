@@ -6,9 +6,9 @@
 # 템플릿 1
 
 - 구글 폼 형식
-  ![템플릿 1](image.png)
+  ![템플릿 1](./public/image.png)
 
 # 템플릿 2
 
 - 네이버 폼 형식
-  ![템플릿 2](image-1.png)
+  ![템플릿 2](./public/image-2.png)
