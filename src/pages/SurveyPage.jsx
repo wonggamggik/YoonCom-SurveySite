@@ -1,11 +1,16 @@
 import { Link } from "react-router-dom";
 import "../assets/Survey.css";
 import survey_image from "../assets/rck-image.png";
+import up_image from "../assets/chevron-double-up_6407358.svg";
 import SurveyCheck from "../components/SurveyCheck";
 import SurveyDescriptive from "../components/SurveyDescriptive";
 import { useState, useEffect } from "react";
 
 export default function SurveyPage() {
+  const goToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <div className="surveyPage">
       {/* 본문 */}
@@ -47,6 +52,11 @@ export default function SurveyPage() {
             <SurveyCheck title={"평소 인성"} />
           </div>
         </div>
+      </div>
+      <div>
+        <button className="goToTop" onClick={goToTop}>
+          <img src={up_image} />
+        </button>
       </div>
     </div>
   );

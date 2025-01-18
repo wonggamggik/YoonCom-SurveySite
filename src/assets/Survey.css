@@ -200,3 +200,15 @@
 [type="checkbox"]:checked + .label-box .check-icon::before {
   border-color: #fff;
 }
+
+.goToTop {
+  position: fixed;
+  bottom: 3%;
+  right: 3%;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: solid 1px var(--company-symbol-color);
+  border-radius: 50%;
+  background-color: white;
+}
