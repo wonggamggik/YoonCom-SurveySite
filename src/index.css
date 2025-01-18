@@ -139,3 +139,10 @@ table {
   --company-symbol-light-color: #3a6ec4;
   --default-background-image: #f7f8fb;
 }
+
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

@@ -1,13 +1,14 @@
 .surveyPage {
-  background-color: var(--default-background-image);
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 73px;
+  background-color: var(--default-background-image);
 }
 
 .nav {
+  position: fixed;
+  margin-top: 0px;
   width: 100%;
   height: 5px;
   background-color: #c8c8c8;
@@ -22,8 +23,9 @@
 .survey {
   margin-top: 45px;
   width: 90%;
-  height: 100vh;
+  overflow: auto;
   border: none;
+  border-radius: 15px;
 }
 
 .introduction {
