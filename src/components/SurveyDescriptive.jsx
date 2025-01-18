@@ -1,4 +1,5 @@
 import questionData from "../data/surveyQuestion.json";
+import "../assets/Survey.css";
 
 export default function SurveyDescriptive({ title }) {
   const data = questionData;
@@ -6,13 +7,11 @@ export default function SurveyDescriptive({ title }) {
   return (
     <div className="content descriptive">
       <div>
-        <div>
-          <h2>{title}</h2>
-          <p>{data[title].description}</p>
-        </div>
-        <div>
-          <textarea></textarea>
-        </div>
+        <h2>{title}</h2>
+        <p>{data[title].description}</p>
+      </div>
+      <div>
+        <textarea></textarea>
       </div>
     </div>
   );

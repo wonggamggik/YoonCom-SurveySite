@@ -1,4 +1,5 @@
 import questionData from "../data/surveyQuestion.json";
+import "../assets/Survey.css";
 
 export default function SurveyCheck({ title }) {
   const data = questionData;
