@@ -1,6 +1,10 @@
 .header {
   background-color: var(--company-symbol-color);
   height: 73px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
 }
 
 .header-inner {
