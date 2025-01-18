@@ -3,14 +3,11 @@ import "../assets/Survey.css";
 import survey_image from "../assets/rck-image.png";
 import SurveyCheck from "../components/SurveyCheck";
 import SurveyDescriptive from "../components/SurveyDescriptive";
+import { useState, useEffect } from "react";
 
 export default function SurveyPage() {
   return (
     <div className="surveyPage">
-      {/* 네비게이션 바 */}
-      <div className="nav">
-        <div className="nav-current"></div>
-      </div>
       {/* 본문 */}
       <div className="survey">
         <div className="survey-conetnts">
