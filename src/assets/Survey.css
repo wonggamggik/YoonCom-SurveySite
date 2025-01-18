@@ -7,6 +7,18 @@
   overflow: auto;
 }
 
+.surveyPage::-webkit-scrollbar {
+  width: 10px;
+}
+
+.surveyPage::-webkit-scrollbar-thumb {
+  background: var(--company-symbol-light-color);
+}
+
+.surveyPage::-webkit-scrollbar-track {
+  background: #ddd;
+}
+
 .nav {
   width: 100%;
   height: 5px;
@@ -89,7 +101,7 @@
 
 .content p {
   font-family: "Gothic A1", serif;
-  font-size: 11pt;
+  font-size: 13pt;
   line-height: 15pt;
   letter-spacing: 0;
   margin-top: 10px;
@@ -99,7 +111,7 @@
   width: 100%;
   height: 120px;
   font-family: "Gothic A1", serif;
-  font-size: 11pt;
+  font-size: 12pt;
   line-height: 15pt;
   letter-spacing: 0;
   padding: 10px;
@@ -112,9 +124,82 @@
 }
 
 .content textarea::-webkit-scrollbar-thumb {
-  background: var(--company-symbol-color);
+  background: var(--company-symbol-light-color);
 }
 
 .content textarea::-webkit-scrollbar-track {
   background: #ddd;
+}
+
+.content .items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: "Gothic A1", serif;
+  font-size: 12pt;
+  line-height: 15pt;
+  letter-spacing: 0;
+  padding: 10px;
+}
+
+.content .item {
+  display: flex;
+  position: relative;
+}
+
+.content .screen-reader {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  margin: -1px;
+  clip-path: inset(50%);
+}
+
+.content .label-box {
+  position: relative;
+}
+
+.content .check-icon {
+  width: 1.4em;
+  height: 1.4em;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 1px solid var(--company-symbol-color);
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.content .check-icon::before {
+  content: "";
+  position: absolute;
+  box-sizing: border-box;
+  width: 30%;
+  height: 55%;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-70%) rotate(40deg);
+  border-right: 1.7px solid transparent;
+  border-bottom: 1.7px solid transparent;
+}
+
+.content label {
+  display: inline-block;
+  padding-left: 2.2em;
+  position: relative;
+  cursor: pointer;
+}
+
+[type="checkbox"]:checked + .label-box .check-icon {
+  border-color: var(--company-symbol-light-color);
+  background-color: var(--company-symbol-light-color);
+}
+
+[type="checkbox"]:checked + .label-box .check-icon::before {
+  border-color: #fff;
 }
