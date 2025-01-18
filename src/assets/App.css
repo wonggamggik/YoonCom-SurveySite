@@ -9,3 +9,7 @@ html::-webkit-scrollbar-thumb {
 html::-webkit-scrollbar-track {
   background: #ddd;
 }
+
+.app {
+  background-color: var(--default-background-image);
+}
