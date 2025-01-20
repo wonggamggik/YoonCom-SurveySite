@@ -10,6 +10,9 @@ export default function Header() {
             <img alt="rck 로고" src={logo}></img>
           </a>
         </div>
+        <div className="submit">
+          <button>제출하기</button>
+        </div>
       </div>
     </div>
   );
