@@ -129,6 +129,12 @@
   background: #ddd;
 }
 
+.content .title-annotation {
+  font-size: 10pt;
+  color: red;
+  margin-top: 3px;
+}
+
 .content .items {
   display: flex;
   flex-direction: column;
