@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import Header from "../components/Header";
 import SurveyDescriptive from "../components/SurveyDescriptive";
 import SurveyCheck from "../components/SurveyCheck";
+import ErrorModal from "../components/ErrorModal";
 import up_image from "../assets/chevron-double-up_6407358.svg";
 import "../assets/Survey.css";
 import questionData from "../data/surveyQuestion.json";
@@ -28,6 +29,9 @@ export default function SurveyPage() {
   const refComm2 = useRef(null);
   const refExpertise = useRef(null);
   const refPersonality = useRef(null);
+
+  const [errorMessages, setErrorMessages] = useState([]);
+  const [showErrorModal, setShowErrorModal] = useState(false);
 
   // (B) invalidMap: 어떤 항목이 유효성 실패인지 상태로 표시
   //    예: { relationship: true, rolePerformance: false, ... }
@@ -65,57 +69,75 @@ export default function SurveyPage() {
     };
 
     let firstErrorRef = null; // 가장 먼저 발견된 에러 항목의 ref
+    const tempErrors = [];
 
     // (A) 서술형 검사
+    // --- 서술형 예시 ---
     if (!relationship.trim()) {
       newInvalid.relationship = true;
+      tempErrors.push("지원자와의 관계");
       if (!firstErrorRef) firstErrorRef = refRelationship;
     }
     if (!rolePerformance.trim()) {
       newInvalid.rolePerformance = true;
+      tempErrors.push("주요 역할과 성과");
       if (!firstErrorRef) firstErrorRef = refRolePerf;
     }
     if (!strengthWeakness.trim()) {
       newInvalid.strengthWeakness = true;
+      tempErrors.push("장점 및 단점");
       if (!firstErrorRef) firstErrorRef = refStrength;
     }
     if (!taskIssue.trim()) {
       newInvalid.taskIssue = true;
+      tempErrors.push("직무/성격상 아쉬웠던 점");
       if (!firstErrorRef) firstErrorRef = refTaskIssue;
     }
 
     // (B) 체크박스 검사
     if (!validateCheckBox(leadership)) {
       newInvalid.leadership = true;
+      tempErrors.push("리더십 측면");
       if (!firstErrorRef) firstErrorRef = refLeadership;
     }
     if (!validateCheckBox(comm1)) {
       newInvalid.comm1 = true;
+      tempErrors.push("협업/커뮤니케이션(1)");
       if (!firstErrorRef) firstErrorRef = refComm1;
     }
     if (!validateCheckBox(comm2)) {
       newInvalid.comm2 = true;
+      tempErrors.push("협업/커뮤니케이션(2)");
       if (!firstErrorRef) firstErrorRef = refComm2;
     }
     if (!validateCheckBox(expertise)) {
       newInvalid.expertise = true;
+      tempErrors.push("평소 전문성");
       if (!firstErrorRef) firstErrorRef = refExpertise;
     }
     if (!validateCheckBox(personality)) {
       newInvalid.personality = true;
+      tempErrors.push("평소 인성");
       if (!firstErrorRef) firstErrorRef = refPersonality;
     }
 
     setInvalidMap(newInvalid);
 
-    // 에러 존재 여부 확인
-    const hasError = Object.values(newInvalid).some((val) => val === true);
-    if (firstErrorRef && firstErrorRef.current) {
-      const element = firstErrorRef.current;
-      const yOffset = -85;
-      const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
+    const hasError = tempErrors.length > 0;
+    if (hasError) {
+      // 가장 먼저 발견된 에러 위치로 스크롤
+      if (firstErrorRef && firstErrorRef.current) {
+        const element = firstErrorRef.current;
+        const yOffset = -85;
+        const y =
+          element.getBoundingClientRect().top + window.scrollY + yOffset;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
 
-      window.scrollTo({ top: y, behavior: "smooth" });
+      setErrorMessages(tempErrors);
+      setShowErrorModal(true);
+
+      return;
     }
 
     // (C) 모두 통과
@@ -138,7 +160,12 @@ export default function SurveyPage() {
     <div className="app">
       {/* 헤더 (버튼 클릭 시 handleSubmit 호출) */}
       <Header onSubmit={handleSubmit} />
-
+      {showErrorModal && (
+        <ErrorModal
+          errors={errorMessages}
+          onClose={() => setShowErrorModal(false)}
+        />
+      )}
       <div className="surveyPage">
         <div className="survey">
           <div className="survey-conetnts">

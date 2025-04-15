@@ -9,10 +9,22 @@ const SurveyCheck = forwardRef(function SurveyCheck(
   const data = questionData;
 
   const handleToggle = (item) => {
+    const noneLabel = "공감되는 문장 없음";
+    const hasNone = value.includes(noneLabel);
+    const isNone = item === noneLabel;
+
     if (value.includes(item)) {
       onChange(value.filter((x) => x !== item));
     } else {
-      onChange([...value, item]);
+      if (isNone) {
+        onChange([noneLabel]);
+      } else {
+        if (hasNone) {
+          onChange([item]);
+        } else {
+          onChange([...value, item]);
+        }
+      }
     }
   };
 
