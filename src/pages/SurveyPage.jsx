@@ -152,6 +152,8 @@ export default function SurveyPage() {
       expertise,
       personality,
     };
+    localStorage.setItem("surveyData", JSON.stringify(payload));
+    alert("데이터가 로컬 스토리지에 임시 저장되었습니다.");
     console.log("제출 데이터:", payload);
     // fetch or axios 가능
   };
