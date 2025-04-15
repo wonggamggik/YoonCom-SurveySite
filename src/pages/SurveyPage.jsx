@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Header from "../components/Header";
 import SurveyDescriptive from "../components/SurveyDescriptive";
 import SurveyCheck from "../components/SurveyCheck";
@@ -7,25 +7,38 @@ import "../assets/Survey.css";
 import questionData from "../data/surveyQuestion.json";
 
 export default function SurveyPage() {
-  // 1) 서술형 상태들
   const [relationship, setRelationship] = useState("");
   const [rolePerformance, setRolePerformance] = useState("");
   const [strengthWeakness, setStrengthWeakness] = useState("");
   const [taskIssue, setTaskIssue] = useState("");
 
-  // 2) 체크박스 상태들
   const [leadership, setLeadership] = useState([]);
   const [comm1, setComm1] = useState([]);
   const [comm2, setComm2] = useState([]);
   const [expertise, setExpertise] = useState([]);
   const [personality, setPersonality] = useState([]);
 
-  // “맨 위로” 버튼
+  const refRelationship = useRef(null);
+  const refRolePerf = useRef(null);
+  const refStrength = useRef(null);
+  const refTaskIssue = useRef(null);
+
+  const refLeadership = useRef(null);
+  const refComm1 = useRef(null);
+  const refComm2 = useRef(null);
+  const refExpertise = useRef(null);
+  const refPersonality = useRef(null);
+
+  // (B) invalidMap: 어떤 항목이 유효성 실패인지 상태로 표시
+  //    예: { relationship: true, rolePerformance: false, ... }
+  const [invalidMap, setInvalidMap] = useState({});
+
+  // 맨위로 버튼
   const goToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // 체크박스 유효성 함수 (예: 2~5개 or "공감되는 문장 없음" 단독)
+  // 체크박스 유효성 (최소 2~ 최대 5개 or "공감되는 문장 없음" 단독)
   function validateCheckBox(arr, noneLabel = "공감되는 문장 없음") {
     const hasNone = arr.includes(noneLabel);
     if (hasNone) {
@@ -36,51 +49,76 @@ export default function SurveyPage() {
     return true;
   }
 
-  // 3) 제출하기 로직
+  // 2) 제출하기 로직
   const handleSubmit = () => {
-    // (A) 서술형 필수 검사
+    // (1) 새 invalidMap 초기화
+    const newInvalid = {
+      relationship: false,
+      rolePerformance: false,
+      strengthWeakness: false,
+      taskIssue: false,
+      leadership: false,
+      comm1: false,
+      comm2: false,
+      expertise: false,
+      personality: false,
+    };
+
+    let firstErrorRef = null; // 가장 먼저 발견된 에러 항목의 ref
+
+    // (A) 서술형 검사
     if (!relationship.trim()) {
-      alert("지원자와의 관계를 입력해 주세요!");
-      return;
+      newInvalid.relationship = true;
+      if (!firstErrorRef) firstErrorRef = refRelationship;
     }
     if (!rolePerformance.trim()) {
-      alert("주요 역할과 성과를 입력해 주세요!");
-      return;
+      newInvalid.rolePerformance = true;
+      if (!firstErrorRef) firstErrorRef = refRolePerf;
     }
     if (!strengthWeakness.trim()) {
-      alert("장점 및 단점을 입력해 주세요!");
-      return;
+      newInvalid.strengthWeakness = true;
+      if (!firstErrorRef) firstErrorRef = refStrength;
     }
     if (!taskIssue.trim()) {
-      alert("직무/성격상 아쉬웠던 점을 입력해 주세요!");
-      return;
+      newInvalid.taskIssue = true;
+      if (!firstErrorRef) firstErrorRef = refTaskIssue;
     }
 
     // (B) 체크박스 검사
     if (!validateCheckBox(leadership)) {
-      alert("리더십 측면 체크가 유효하지 않습니다!");
-      return;
+      newInvalid.leadership = true;
+      if (!firstErrorRef) firstErrorRef = refLeadership;
     }
     if (!validateCheckBox(comm1)) {
-      alert("협업/커뮤니케이션(1) 체크가 유효하지 않습니다!");
-      return;
+      newInvalid.comm1 = true;
+      if (!firstErrorRef) firstErrorRef = refComm1;
     }
     if (!validateCheckBox(comm2)) {
-      alert("협업/커뮤니케이션(2) 체크가 유효하지 않습니다!");
-      return;
+      newInvalid.comm2 = true;
+      if (!firstErrorRef) firstErrorRef = refComm2;
     }
     if (!validateCheckBox(expertise)) {
-      alert("평소 전문성 체크가 유효하지 않습니다!");
-      return;
+      newInvalid.expertise = true;
+      if (!firstErrorRef) firstErrorRef = refExpertise;
     }
     if (!validateCheckBox(personality)) {
-      alert("평소 인성 체크가 유효하지 않습니다!");
-      return;
+      newInvalid.personality = true;
+      if (!firstErrorRef) firstErrorRef = refPersonality;
+    }
+
+    setInvalidMap(newInvalid);
+
+    // 에러 존재 여부 확인
+    const hasError = Object.values(newInvalid).some((val) => val === true);
+    if (firstErrorRef && firstErrorRef.current) {
+      const element = firstErrorRef.current;
+      const yOffset = -85;
+      const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
+
+      window.scrollTo({ top: y, behavior: "smooth" });
     }
 
     // (C) 모두 통과
-    alert("통과!");
-
     const payload = {
       relationship,
       rolePerformance,
@@ -93,39 +131,56 @@ export default function SurveyPage() {
       personality,
     };
     console.log("제출 데이터:", payload);
-    // fetch/axios로 서버 전송 가능
+    // fetch or axios 가능
   };
 
   return (
     <div className="app">
-      {/* 헤더에 onSubmit 함수를 props로 전달 */}
+      {/* 헤더 (버튼 클릭 시 handleSubmit 호출) */}
       <Header onSubmit={handleSubmit} />
 
       <div className="surveyPage">
         <div className="survey">
           <div className="survey-conetnts">
-            {/* 예시 introduction 생략 */}
+            <div className="introduction">
+              <div className="image"></div>
+              <div className="text">
+                <h1>온라인 레퍼런스 체크</h1>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+                </p>
+              </div>
+            </div>
+
             <div className="contents">
               {/* 서술형 */}
               <SurveyDescriptive
                 title="지원자와의 관계"
                 value={relationship}
                 onChange={setRelationship}
+                invalid={invalidMap.relationship}
+                ref={refRelationship}
               />
               <SurveyDescriptive
                 title="주요 역할과 성과"
                 value={rolePerformance}
                 onChange={setRolePerformance}
+                invalid={invalidMap.rolePerformance}
+                ref={refRolePerf}
               />
               <SurveyDescriptive
                 title="장점 및 단점"
                 value={strengthWeakness}
                 onChange={setStrengthWeakness}
+                invalid={invalidMap.strengthWeakness}
+                ref={refStrength}
               />
               <SurveyDescriptive
                 title="직무/성격상 아쉬웠던 점"
                 value={taskIssue}
                 onChange={setTaskIssue}
+                invalid={invalidMap.taskIssue}
+                ref={refTaskIssue}
               />
 
               {/* 체크박스 */}
@@ -133,32 +188,41 @@ export default function SurveyPage() {
                 title="리더십 측면"
                 value={leadership}
                 onChange={setLeadership}
+                invalid={invalidMap.leadership}
+                ref={refLeadership}
               />
               <SurveyCheck
                 title="협업/커뮤니케이션(1)"
                 value={comm1}
                 onChange={setComm1}
+                invalid={invalidMap.comm1}
+                ref={refComm1}
               />
               <SurveyCheck
                 title="협업/커뮤니케이션(2)"
                 value={comm2}
                 onChange={setComm2}
+                invalid={invalidMap.comm2}
+                ref={refComm2}
               />
               <SurveyCheck
                 title="평소 전문성"
                 value={expertise}
                 onChange={setExpertise}
+                invalid={invalidMap.expertise}
+                ref={refExpertise}
               />
               <SurveyCheck
                 title="평소 인성"
                 value={personality}
                 onChange={setPersonality}
+                invalid={invalidMap.personality}
+                ref={refPersonality}
               />
             </div>
           </div>
         </div>
 
-        {/* 페이지 하단: 맨 위로 버튼 */}
         <div style={{ marginTop: 20, textAlign: "center" }}>
           <button className="goToTop" onClick={goToTop}>
             <img src={up_image} alt="위로 가기" />

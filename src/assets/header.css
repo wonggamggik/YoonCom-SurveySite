@@ -17,13 +17,13 @@
   height: 73px;
 }
 
-.submit > button {
+.submit button {
   background-color: var(--company-symbol-light-color);
   font-family: "Gothic A1", serif;
   font-weight: 900;
   font-style: normal;
   font-size: 12pt;
-  padding: 6px;
+  padding: 6px 12px;
   color: var(--default-background-image);
   border: 1px solid var(--company-symbol-light-color);
   border-radius: 15px;

@@ -218,3 +218,9 @@
   border-radius: 50%;
   background-color: white;
 }
+
+.invalid-box {
+  border: 2px solid red;
+  border-radius: 20px;
+  padding: 10px;
+}

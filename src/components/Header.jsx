@@ -14,9 +14,8 @@ export default function Header({ onSubmit }) {
           </a>
         </div>
         <div className="submit">
-          <button>제출하기</button>
           <div>
-            <button onClick={onSubmit}>제출하기</button>
+            <button onClick={onSubmit}>제출</button>
           </div>
         </div>
       </div>
