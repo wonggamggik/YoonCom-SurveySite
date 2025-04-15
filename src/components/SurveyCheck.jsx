@@ -21,6 +21,7 @@ const SurveyCheck = forwardRef(function SurveyCheck(
       <div>
         <h2>{title}</h2>
         <p>{data[title].description}</p>
+        <p className="title-annotation">최소 2개, 최대 5개</p>
       </div>
       <div className="items">
         {data[title].items.map((item, id) => {
